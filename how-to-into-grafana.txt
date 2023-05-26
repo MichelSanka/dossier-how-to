@@ -1,0 +1,26 @@
+Junior Developper guide => https://ivanahuckova.medium.com/how-to-contribute-to-grafana-as-junior-dev-c01fe3064502
+install grafana source on windows => https://grafana.com/blog/2021/03/03/how-to-set-up-a-grafana-development-environment-on-a-windows-pc-using-wsl/
+intallation dependance 
+go language => https://go.dev/dl/
+Node.js + NPM => https://phoenixnap.com/kb/install-node-js-npm-on-windows
+yarn => npm install -g yarn (c'est un gestionnaire de paquet et de projet)
+GCC for windows => https://jmeubank.github.io/tdm-gcc/articles/2021-05/10.3.0-release
+wire => go install github.com/google/wire/cmd/wire (dont put @ latest at the end)
+
+Résulat de la commande "wire.exe gen -tags oss ./pkg/server ./pkg/cmd/grafana-cli/runner"
+Faire la commande "go run build.go build" => Lancer le grafana-server.exe créé par la commande à l'endroit indiqué sur le résultat de celle ci
+Compréhension des repo frontend de grafana => https://www.neteye-blog.com/2017/12/how-to-customize-your-grafana-theme/
+
+
+http://localhost:3000/profile => admin-home.html
+js for date picker => C:\Outils\grafana\public\vendor\angular-other\datepicker.js
+url when time ra,nge change => http://localhost:3000/api/annotations?from=1643368401889&to=1643369301889&limit=100&matchAny=false&dashboardId=1
+	implicated js file 
+		- timeRangeUpdated 	=> 	DashboardModel.ts:376
+		- refreshDashboard 	=> 	TimeSrv.ts:249
+		- setTime 			=>	TimeSrv.ts:306 		
+		- onChangeTimePicker => DashNavTimeControls.tsx:65
+		- onChange 			=> TimePickerWithHistory.tsx:20
+		- onChange			=> TimeRangePicker.tsx:73
+		- onChangeTimeOPtion => TimePickerContent.tsx:185
+		- onClick 			=> TimeRangeOption.tsx:55
