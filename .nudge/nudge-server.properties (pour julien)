@@ -1,0 +1,306 @@
+# configuration for production
+# user.dir set to appropriate path so that relative dir work (see storage.* and dir.* )
+storage.mode=local
+#deprecated
+storage.s3.ID=
+#deprecated
+storage.s3.secret=
+#deprecated
+storage.s3.bucketName=
+#deprecated
+storage.s3.appKeyPrefix=
+#deprecated
+storage.s3.sysKeyPrefix=
+#EXPOSEnDEFAULT
+storage.local.work=/usr/local/nudge/data/work/
+#EXPOSEnDEFAULT
+storage.local.rawdata=/usr/local/nudge/data/rawdata/
+#EXPOSEnDEFAULT
+storage.local.upload=/usr/local/nudge/data/upload/
+
+# For consistency consideration
+#deprecated
+instance.port=UNUSED
+#EXPOSEnDEFAULT
+instance.url= http://localhost:8080
+#deprecated
+auth.pass.min_length=8
+#deprecated
+auth.pass.min_char_types=3
+
+probe.version= 3.5.0
+
+#EXPOSEnDEFAULT
+collector.url= http://localhost:8080
+#EXPOSEnDEFAULT
+service.url= http://localhost:8080
+
+#EXPOSEnDEFAULT
+smtp.hostname=<VALEUR_A_CHANGER>
+#EXPOSEnDEFAULT
+smtp.auth.user=<VALEUR_A_CHANGER>
+#EXPOSEnDEFAULT
+smtp.auth.pwd=<VALEUR_A_CHANGER>
+#EXPOSEnDEFAULT
+smtp.ssl=<VALEUR_A_CHANGER>
+#valeur par defaut : true
+#EXPOSEnDEFAULT
+smtp.port=<VALEUR_A_CHANGER>
+
+#EXPOSEnDEFAULT
+bill.email.sender=helpdesk@nudge.org
+
+#deprecated
+mysql.local.url=UNUSED
+
+# Threading
+thread.rawdata=true
+thread.sla=true
+thread.purge=false
+thread.bill=false
+
+# Directories
+#utilisé pour la mise à dispo des probes
+dir.nudge=./
+#deprecated
+dir.work=UNUSED
+
+#--- Cassandra 2
+#EXPOSEnDEFAULT
+cassandra.nodes=127.0.0.1
+#EXPOSEnDEFAULT
+cassandra.port=9042
+#valeur par defaut : 9505
+#EXPOSEnDEFAULT
+cassandra.replication.main=1
+#EXPOSEnDEFAULT
+cassandra.replication.temp=1
+# Read timeout of any request after what the host is marked as 'down' (in milliseconds)
+cassandra.socket.timeout=25000
+# Connection timeout after what the host is marked as 'down' (in milliseconds)
+cassandra.pooling.timeout=25000
+# Maximum count of ongoing requests on one host (count is divided by 8 for hosts outside the data-center)
+cassandra.pooling.requests=4096
+# Delay for a reconnection attempt of a down host (in milliseconds)
+cassandra.pooling.reconnect=2500
+# Retry policy of any failed request
+cassandra.policy.retry=ALWAYS_IGNORE
+# Maximum number of hosts to be connected for each remote data center (if no local host is available)
+cassandra.policy.remote_hosts=
+# Number of threads dedicated to chained C* requests
+cassandra.pooling.chaining.threads=3
+# Number of rows returned by queries
+cassandra.query.fetch_size=100000
+
+#--- Analyzer
+# Number of threads dedicated to rawdata analysis
+analyzer.threads=40
+# Delay before flush rawdata to analyse
+analyzer.delay=1
+# Maximum files cumuled size per analysis
+analyzer.limitfiles=50000000
+# Delay after which no mail or webhook notification should be sent
+analyzer.dont_notify_after_millis=1800000
+# Should profiling thread-info be recycled (false value improve performance but reduce profiling quality)
+analyzer.recycle_threadinfo=true
+#
+analyzer.fetch.timeout=20
+#
+analyzer.lock.timeout=3
+# Single file size limit
+analyzer.limit.filesize=100000000
+# Mafimum files count per analysis
+analyzer.limit.count=10000
+analyzer.keep_file_after_analysis=true
+
+
+# Zookeeper
+#deprecated
+zookeeper.nodes=
+#deprecated
+zookeeper.port=
+
+#EXPOSEnDEFAULT
+domain.name=nudge-apm.com
+#EXPOSEnDEFAULT
+administrators=<VALEUR_A_CHANGER>
+#liste des mails des comptes administrateurs separes par ";"
+
+servlet.errors.log=false
+
+#--- Caching
+# Nodes for the caching service
+cache.nodes=127.0.0.1
+# Port for the caching service
+cache.port=5300
+# Replication factor for the caching service
+cache.replication=2
+
+#--- Aggregation
+# Metrics aggregation period in milli seconds
+metrics.aggregation.period=600000
+# Metrics aggregation max entities count per iteration
+metrics.aggregation.max.entity=100
+# Metrics aggregation max instant count per entity in an iteration
+metrics.aggregation.max.instant=1000
+# Max execution thread queue size of pending aggregation tasks
+metrics.aggregation.max.queue=10000
+# Max pending task count (file count in a directory)
+metrics.aggregation.max.pending=10000
+# Metrics aggregation iteration time out in seconds
+metrics.aggregation.timeout=250
+# Thread count for the time aggregation (application count under processing at a time)
+metrics.aggregation.threads=40
+# Optional pause time in milliseconds between two synchronisation time-point during aggregation
+metrics.aggregation.pause=
+
+# Metrics query parameters : thread count of executors
+metrics.thread.pool.size.front=10
+metrics.thread.pool.size.back=30
+
+#deprecated
+system-metric-version=2
+#deprecated
+profiling-version=2
+
+#--- Reporting
+# Must be 'true' for the scheduled sending of reports (currently only one node can be actived)
+reporting.scheduling.active=false
+# Thread count for the scheduled sending of reports
+reporting.scheduling.threads=1
+# If true, it uses a shared locking mecanism for synchronisation accross the cluster
+reporting.scheduling.shared_locks=false
+# Minimum period for the scheduled sending of reports
+reporting.scheduling.period=DAYS
+# Scheduling start time in format 'HH:mm' in the default TimeZone
+reporting.scheduling.time=06:30
+# Time out for data extract related to a report in seconds
+reporting.extract.request.timeout=3
+# Time out for the global aggregation call in seconds
+reporting.extract.timeout=10
+# Time out for the export of a report in seconds
+reporting.export.timeout=12
+
+# Possible choices : old, new, hybrid
+#deprecated
+app-map-version=new
+
+# fireman hack : only enable aggregation on a per-host configuration
+metrics.aggregation.active=false
+
+# fireman hack : only query minutes to avoid inconsistencies in UI
+timeslice.smallestUnitOnly=true
+granularity.useMinutesOnly=true
+#
+
+rawdata.user_behaviour_enabled=true
+rawdata.transaction_details=true
+ultra_wr_timestamp=1474218000000
+
+# load-balancer ping
+#deprecated
+loadbalancer.ping.app=
+#deprecated
+loadbalancer.ping.enable=false
+#deprecated
+loadbalancer.ping.refreshIntervalMillis=5000
+
+# -- CleverCloud integration --
+#deprecated
+clevercloud.enable=false
+#deprecated
+clevercloud.email=
+#deprecated
+clevercloud.login=
+#deprecated
+clevercloud.password=
+
+#--- Storage of histograms
+# Implementation ID (is optional) : 'legacy' or 'hdr' (default)
+histogram.impl=hdr
+# 'Time to live' (is optional)
+#   Lifetime of a stored histogram in seconds.
+#   By default, it gets the TTL of the corresponding keyspace
+histogram.time_to_live=
+# Precision of the histograms (is optional)
+#   Can be either : 'lowest', 'low', 'medium', 'fine', 'finer', 'finest'
+#   Default is 'finest'
+histogram.precision=medium
+# Compression of histograms (is optional)
+#   Can be either : 'none', 'fastest', 'best'
+#   Default is 'best'
+histogram.compression=best
+# Maximum duration of a processing time to be stored in milliseconds (is optional)
+#   If the value is too high, values might get ceiled. On the other side, the bigger is the value, the lower is the precision.
+#   By default this duration corresponds to 5 minutes.
+histogram.max_duration=300000
+# Maximum count of retries after having tried to insert a value into an existing row (is optional)
+# Must be a positive value (0 is allowed but probably not a good idea)
+histogram.max_retry=5
+
+# --- JWT configuration
+#
+# keep existing JEE session to stay compatible with existing script/clients
+# when set to false means that we don't use sessions at all
+jwt.legacySession=true
+
+# jwt signature secret, as it names implies access to this value should be kept secret
+# access to this value allows to impersonate any user on platform aka "open-bar" access
+# changing this value will invalidate all existing tokens
+#EXPOSEnDEFAULT
+jwt.secret=0rFRAiC4dvx7ofFkjR2HxH0biUp6ODN11Tep2Zvp
+
+# login token validity, defaults to 1 week
+jwt.loginValidityMinutes=10080
+
+# stripe and licensing
+#deprecated
+stripe.secret=
+#deprecated
+licence.renew.job.active=false
+#deprecated
+licence.renew.job.scheduling.time=06:30
+#deprecated
+licence.email.sales=sales@nudgeapm.io
+
+# github
+#EXPOSEnCONFIG
+github.client_id=
+#EXPOSEnCONFIG
+github.client_secret=
+
+# frontend keys/IDs
+#EXPOSEnCONFIG
+google.analytics_account=
+#EXPOSEnCONFIG
+google.api_key=
+#EXPOSEnCONFIG
+intercom.app_id=
+
+#deprecated
+# url entry point
+plugin.config_management_api.local_instance_ip=163.172.99.196:5405
+plugin.config_management_api.url=https://entrypoint.nudge-apm.com/new-nudge-app/
+plugin.config_management_api.username=admin
+plugin.config_management_api.password=n8NQnm4rD9Q8hYNo
+
+license.filename=<VALEUR_A_CHANGER>
+grafana.urls=
+number.nudge.tabs=6
+#Position into IHM on infra Tab
+tabInfraPosition=6
+
+#Position into IHM on ux Tab
+tabUxPosition=7
+
+#Position into IHM on synthetic Tab
+tabSyntheticPosition=8
+
+#Position into IHM on rum Tab
+tabRumPosition=9
+
+#Position into IHM on loadTest Tab
+tabLoadTestPosition=10
+
+# timeout de l'onglet service, valeur par défaut
+# tab.service.timeout=10000
